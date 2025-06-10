@@ -1,0 +1,1463 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/23/2025 4:09:22 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="MEZTLI"
+  DTS:CreatorName="MEZTLI\lizet"
+  DTS:DTSID="{EA4079AA-5AAF-4A1D-B3BA-7F2CC4A9602D}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.0"
+  DTS:LocaleID="22538"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="12"
+  DTS:VersionGUID="{0DBC3502-1B9D-4BEB-B2B4-A90BCE4DF56B}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.stage_northwind]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{CEC10681-271A-4C6C-9FF9-77BFA3FCCF8A}"
+      DTS:ObjectName="LocalHost.stage_northwind">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=stage_northwind;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{CEC10681-271A-4C6C-9FF9-77BFA3FCCF8A}LocalHost.stage_northwind;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[MEZTLI.Northwind]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{BFF9AD7C-5F95-4D1D-A8A2-9DCB79AFBC25}"
+      DTS:ObjectName="MEZTLI.Northwind">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=MEZTLI;Initial Catalog=Northwind;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{BFF9AD7C-5F95-4D1D-A8A2-9DCB79AFBC25}MEZTLI.Northwind;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\CARGA STAGE_PRODUCTO"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{8A636BB3-1553-4831-A59A-D4435AA57D3D}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="CARGA STAGE_PRODUCTO"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\CARGA STAGE_PRODUCTO\Conditional Split"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\CARGA STAGE_PRODUCTO\Conditional Split.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Conditional Split.Inputs[Conditional Split Input].Columns[ProductID]"
+                      cachedDataType="i4"
+                      cachedName="ProductID"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output].Columns[ProductID]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA STAGE_PRODUCTO\Conditional Split.Outputs[productos_nuevos]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="productos_nuevos"
+                  synchronousInputId="Package\CARGA STAGE_PRODUCTO\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">[ISNULL](#{Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output].Columns[ProductID]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">ISNULL(ProductID)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA STAGE_PRODUCTO\Conditional Split.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\CARGA STAGE_PRODUCTO\Conditional Split.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA STAGE_PRODUCTO\Conditional Split.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\CARGA STAGE_PRODUCTO\Conditional Split.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA STAGE_PRODUCTO\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\CARGA STAGE_PRODUCTO\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Data Conversion.Inputs[Data Conversion Input].Columns[ProductID]"
+                      cachedDataType="i4"
+                      cachedName="ProductID"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].Columns[ProductID]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA STAGE_PRODUCTO\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\CARGA STAGE_PRODUCTO\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of ProductID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of ProductID]"
+                      name="Copy of ProductID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].Columns[ProductID]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA STAGE_PRODUCTO\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\CARGA STAGE_PRODUCTO\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA STAGE_PRODUCTO\Merge Join"
+              componentClassID="Microsoft.MergeJoin"
+              contactInfo="Merge Join;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combine two sorted data flows into one using the FULL, LEFT, or INNER join. We recommend this transformation when data flows can be sorted at their sources."
+              name="Merge Join"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of join to perform."
+                  name="JoinType"
+                  typeConverter="JoinType">2</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of columns in the ordering key."
+                  name="NumKeyColumns">1</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the null values are treated as equal values."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates the requested maximum buffers per input before blocking."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\CARGA STAGE_PRODUCTO\Merge Join.Inputs[Merge Join Left Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Left Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Merge Join.Inputs[Merge Join Left Input].Columns[ProductID]"
+                      cachedDataType="i4"
+                      cachedName="ProductID"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Sort.Outputs[Sort Output].Columns[ProductID]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Merge Join.Inputs[Merge Join Left Input].Columns[ProductName]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="ProductName"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Sort.Outputs[Sort Output].Columns[ProductName]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Merge Join.Inputs[Merge Join Left Input].Columns[UnitPrice]"
+                      cachedDataType="cy"
+                      cachedName="UnitPrice"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Sort.Outputs[Sort Output].Columns[UnitPrice]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\CARGA STAGE_PRODUCTO\Merge Join.Inputs[Merge Join Right Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Right Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Merge Join.Inputs[Merge Join Right Input].Columns[productoid]"
+                      cachedDataType="i4"
+                      cachedName="productoid"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Sort 1.Outputs[Sort Output].Columns[productoid]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Merge Join.Inputs[Merge Join Right Input].Columns[nombreproducto]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="nombreproducto"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Sort 1.Outputs[Sort Output].Columns[nombreproducto]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Merge Join.Inputs[Merge Join Right Input].Columns[preciounitario]"
+                      cachedDataType="numeric"
+                      cachedName="preciounitario"
+                      cachedPrecision="15"
+                      cachedScale="2"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Sort 1.Outputs[Sort Output].Columns[preciounitario]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output]"
+                  isSorted="true"
+                  name="Merge Join Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output].Columns[ProductID]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output].Columns[ProductID]"
+                      name="ProductID"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\CARGA STAGE_PRODUCTO\Merge Join.Inputs[Merge Join Left Input].Columns[ProductID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output].Columns[ProductName]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output].Columns[ProductName]"
+                      name="ProductName">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\CARGA STAGE_PRODUCTO\Merge Join.Inputs[Merge Join Left Input].Columns[ProductName]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output].Columns[UnitPrice]"
+                      dataType="cy"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output].Columns[UnitPrice]"
+                      name="UnitPrice">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\CARGA STAGE_PRODUCTO\Merge Join.Inputs[Merge Join Left Input].Columns[UnitPrice]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output].Columns[productoid]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output].Columns[productoid]"
+                      name="productoid">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\CARGA STAGE_PRODUCTO\Merge Join.Inputs[Merge Join Right Input].Columns[productoid]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output].Columns[nombreproducto]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output].Columns[nombreproducto]"
+                      name="nombreproducto">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\CARGA STAGE_PRODUCTO\Merge Join.Inputs[Merge Join Right Input].Columns[nombreproducto]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output].Columns[preciounitario]"
+                      dataType="numeric"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output].Columns[preciounitario]"
+                      name="preciounitario"
+                      precision="15"
+                      scale="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\CARGA STAGE_PRODUCTO\Merge Join.Inputs[Merge Join Right Input].Columns[preciounitario]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="NORRHWIND_PRODUCTS"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select ProductID,ProductName,UnitPrice
+from Northwind.dbo.Products;</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[MEZTLI.Northwind]"
+                  connectionManagerRefId="Package.ConnectionManagers[MEZTLI.Northwind]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].Columns[ProductID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].ExternalColumns[ProductID]"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].Columns[ProductID]"
+                      name="ProductID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].Columns[ProductName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].ExternalColumns[ProductName]"
+                      length="40"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].Columns[ProductName]"
+                      name="ProductName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].Columns[UnitPrice]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].ExternalColumns[UnitPrice]"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].Columns[UnitPrice]"
+                      name="UnitPrice"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].ExternalColumns[ProductID]"
+                      dataType="i4"
+                      name="ProductID" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].ExternalColumns[ProductName]"
+                      dataType="wstr"
+                      length="40"
+                      name="ProductName" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].ExternalColumns[UnitPrice]"
+                      dataType="cy"
+                      name="UnitPrice" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Error Output].Columns[ProductID]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Error Output].Columns[ProductID]"
+                      name="ProductID" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Error Output].Columns[ProductName]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Error Output].Columns[ProductName]"
+                      name="ProductName" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Error Output].Columns[UnitPrice]"
+                      dataType="cy"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Error Output].Columns[UnitPrice]"
+                      name="UnitPrice" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[producto]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.stage_northwind]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.stage_northwind]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[preciounitario]"
+                      cachedDataType="numeric"
+                      cachedName="preciounitario"
+                      cachedPrecision="15"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[preciounitario]"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output].Columns[preciounitario]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[nombreproducto]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="nombreproducto"
+                      externalMetadataColumnId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[nombreproducto]"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output].Columns[nombreproducto]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ProductID]"
+                      cachedDataType="i4"
+                      cachedName="ProductID"
+                      cachedSortKeyPosition="1"
+                      externalMetadataColumnId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[productoid]"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output].Columns[ProductID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[productoid]"
+                      dataType="i4"
+                      name="productoid" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[nombreproducto]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="nombreproducto" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[preciounitario]"
+                      dataType="numeric"
+                      name="preciounitario"
+                      precision="15"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA STAGE_PRODUCTO\Sort"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\CARGA STAGE_PRODUCTO\Sort.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Sort.Inputs[Sort Input].Columns[ProductID]"
+                      cachedDataType="i4"
+                      cachedName="ProductID"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].Columns[ProductID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Sort.Inputs[Sort Input].Columns[ProductName]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="ProductName"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].Columns[ProductName]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Sort.Inputs[Sort Input].Columns[UnitPrice]"
+                      cachedDataType="cy"
+                      cachedName="UnitPrice"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].Columns[UnitPrice]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA STAGE_PRODUCTO\Sort.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Sort.Outputs[Sort Output].Columns[ProductID]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Sort.Outputs[Sort Output].Columns[ProductID]"
+                      name="ProductID"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].Columns[ProductID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Sort.Outputs[Sort Output].Columns[ProductName]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Sort.Outputs[Sort Output].Columns[ProductName]"
+                      name="ProductName">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].Columns[ProductName]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Sort.Outputs[Sort Output].Columns[UnitPrice]"
+                      dataType="cy"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Sort.Outputs[Sort Output].Columns[UnitPrice]"
+                      name="UnitPrice">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output].Columns[UnitPrice]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA STAGE_PRODUCTO\Sort 1"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort 1"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\CARGA STAGE_PRODUCTO\Sort 1.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Sort 1.Inputs[Sort Input].Columns[productoid]"
+                      cachedDataType="i4"
+                      cachedName="productoid"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output].Columns[productoid]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Sort 1.Inputs[Sort Input].Columns[nombreproducto]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="nombreproducto"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output].Columns[nombreproducto]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Sort 1.Inputs[Sort Input].Columns[preciounitario]"
+                      cachedDataType="numeric"
+                      cachedName="preciounitario"
+                      cachedPrecision="15"
+                      cachedScale="2"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output].Columns[preciounitario]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA STAGE_PRODUCTO\Sort 1.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Sort 1.Outputs[Sort Output].Columns[productoid]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Sort 1.Outputs[Sort Output].Columns[productoid]"
+                      name="productoid"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output].Columns[productoid]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Sort 1.Outputs[Sort Output].Columns[nombreproducto]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Sort 1.Outputs[Sort Output].Columns[nombreproducto]"
+                      name="nombreproducto">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output].Columns[nombreproducto]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\Sort 1.Outputs[Sort Output].Columns[preciounitario]"
+                      dataType="numeric"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\Sort 1.Outputs[Sort Output].Columns[preciounitario]"
+                      name="preciounitario"
+                      precision="15"
+                      scale="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output].Columns[preciounitario]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="STAGE_PRODUCTOS"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[producto]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.stage_northwind]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.stage_northwind]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output].Columns[productoid]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output].ExternalColumns[productoid]"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output].Columns[productoid]"
+                      name="productoid"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output].Columns[nombreproducto]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output].ExternalColumns[nombreproducto]"
+                      length="50"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output].Columns[nombreproducto]"
+                      name="nombreproducto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output].Columns[preciounitario]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output].ExternalColumns[preciounitario]"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output].Columns[preciounitario]"
+                      name="preciounitario"
+                      precision="15"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output].ExternalColumns[productoid]"
+                      dataType="i4"
+                      name="productoid" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output].ExternalColumns[nombreproducto]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="nombreproducto" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output].ExternalColumns[preciounitario]"
+                      dataType="numeric"
+                      name="preciounitario"
+                      precision="15"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Error Output].Columns[productoid]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Error Output].Columns[productoid]"
+                      name="productoid" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Error Output].Columns[nombreproducto]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Error Output].Columns[nombreproducto]"
+                      name="nombreproducto" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Error Output].Columns[preciounitario]"
+                      dataType="numeric"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Error Output].Columns[preciounitario]"
+                      name="preciounitario"
+                      precision="15"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\CARGA STAGE_PRODUCTO.Paths[Data Conversion Output]"
+              endId="Package\CARGA STAGE_PRODUCTO\Sort.Inputs[Sort Input]"
+              name="Data Conversion Output"
+              startId="Package\CARGA STAGE_PRODUCTO\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\CARGA STAGE_PRODUCTO.Paths[Merge Join Output]"
+              endId="Package\CARGA STAGE_PRODUCTO\Conditional Split.Inputs[Conditional Split Input]"
+              name="Merge Join Output"
+              startId="Package\CARGA STAGE_PRODUCTO\Merge Join.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\CARGA STAGE_PRODUCTO.Paths[OLE DB Source Output]"
+              endId="Package\CARGA STAGE_PRODUCTO\Sort 1.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\CARGA STAGE_PRODUCTO.Paths[OLE DB Source Output1]"
+              endId="Package\CARGA STAGE_PRODUCTO\Data Conversion.Inputs[Data Conversion Input]"
+              name="OLE DB Source Output"
+              startId="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\CARGA STAGE_PRODUCTO.Paths[productos_nuevos]"
+              endId="Package\CARGA STAGE_PRODUCTO\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="productos_nuevos"
+              startId="Package\CARGA STAGE_PRODUCTO\Conditional Split.Outputs[productos_nuevos]" />
+            <path
+              refId="Package\CARGA STAGE_PRODUCTO.Paths[Sort Output]"
+              endId="Package\CARGA STAGE_PRODUCTO\Merge Join.Inputs[Merge Join Left Input]"
+              name="Sort Output"
+              startId="Package\CARGA STAGE_PRODUCTO\Sort.Outputs[Sort Output]" />
+            <path
+              refId="Package\CARGA STAGE_PRODUCTO.Paths[Sort Output1]"
+              endId="Package\CARGA STAGE_PRODUCTO\Merge Join.Inputs[Merge Join Right Input]"
+              name="Sort Output"
+              startId="Package\CARGA STAGE_PRODUCTO\Sort 1.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="218.4,41.6"
+          Id="Package\CARGA STAGE_PRODUCTO"
+          TopLeft="326.666648818388,48.5333329958386" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\CARGA STAGE_PRODUCTO">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="208,41.6"
+          Id="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS"
+          TopLeft="245.833319901593,66.7333328692781" />
+        <NodeLayout
+          Size="185.6,41.6"
+          Id="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS"
+          TopLeft="591.666634339427,57.1999996022383" />
+        <NodeLayout
+          Size="106.4,41.6"
+          Id="Package\CARGA STAGE_PRODUCTO\Sort 1"
+          TopLeft="584.99996803701,215.666665250395" />
+        <NodeLayout
+          Size="97.6,41.6"
+          Id="Package\CARGA STAGE_PRODUCTO\Sort"
+          TopLeft="327.49998210619,233.999998372793" />
+        <NodeLayout
+          Size="156,41.6"
+          Id="Package\CARGA STAGE_PRODUCTO\Data Conversion"
+          TopLeft="285.833317716089,175.933332109915" />
+        <EdgeLayout
+          Id="Package\CARGA STAGE_PRODUCTO.Paths[Data Conversion Output]"
+          TopLeft="363.833317716089,217.533332109915">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-36.3333356098989,37.2666662628781"
+              Start="0,0"
+              End="-28.8333356098989,37.2666662628781">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.2666662628781" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,33.2666662628781"
+                    Point2="0,37.2666662628781"
+                    Point3="-4,37.2666662628781" />
+                  <mssgle:LineSegment
+                    End="-28.8333356098989,37.2666662628781" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\CARGA STAGE_PRODUCTO.Paths[OLE DB Source Output1]"
+          TopLeft="349.833319901593,108.333332869278">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="13.9999978144964,67.5999992406368"
+              Start="0,0"
+              End="13.9999978144964,60.0999992406368">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.7999996203184" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,29.7999996203184"
+                    Point2="0,33.7999996203184"
+                    Point3="4,33.7999996203184" />
+                  <mssgle:LineSegment
+                    End="9.9999978144964,33.7999996203184" />
+                  <mssgle:CubicBezierSegment
+                    Point1="9.9999978144964,33.7999996203184"
+                    Point2="13.9999978144964,33.7999996203184"
+                    Point3="13.9999978144964,37.7999996203184" />
+                  <mssgle:LineSegment
+                    End="13.9999978144964,60.0999992406368" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\CARGA STAGE_PRODUCTO.Paths[OLE DB Source Output]"
+          TopLeft="684.466634339427,98.7999996022383">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-46.2666663024166,116.866665648156"
+              Start="0,0"
+              End="-46.2666663024166,109.366665648156">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54.4333328240781" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,54.4333328240781"
+                    Point2="0,58.4333328240781"
+                    Point3="-4,58.4333328240781" />
+                  <mssgle:LineSegment
+                    End="-42.2666663024166,58.4333328240781" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-42.2666663024166,58.4333328240781"
+                    Point2="-46.2666663024166,58.4333328240781"
+                    Point3="-46.2666663024166,62.4333328240781" />
+                  <mssgle:LineSegment
+                    End="-46.2666663024166,109.366665648156" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="129.6,41.6"
+          Id="Package\CARGA STAGE_PRODUCTO\Merge Join"
+          TopLeft="460.833308154511,325.86666440063" />
+        <EdgeLayout
+          Id="Package\CARGA STAGE_PRODUCTO.Paths[Sort Output]"
+          TopLeft="376.29998210619,275.599998372793">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="129.066659381654,50.2666660278373"
+              Start="0,0"
+              End="129.066659381654,42.7666660278373">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.792194743328" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.792194743328"
+                    Point2="0,29.792194743328"
+                    Point3="4,29.792194743328" />
+                  <mssgle:LineSegment
+                    End="125.066659381654,29.792194743328" />
+                  <mssgle:CubicBezierSegment
+                    Point1="125.066659381654,29.792194743328"
+                    Point2="129.066659381654,29.792194743328"
+                    Point3="129.066659381654,33.792194743328" />
+                  <mssgle:LineSegment
+                    End="129.066659381654,42.7666660278373" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\CARGA STAGE_PRODUCTO.Paths[Sort Output1]"
+          TopLeft="638.19996803701,257.266665250395">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-92.2999932158325,68.5999991502359"
+              Start="0,0"
+              End="-92.2999932158325,61.0999991502359">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.6580482768471" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,36.6580482768471"
+                    Point2="0,40.6580482768471"
+                    Point3="-4,40.6580482768471" />
+                  <mssgle:LineSegment
+                    End="-88.2999932158325,40.6580482768471" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-88.2999932158325,40.6580482768471"
+                    Point2="-92.2999932158325,40.6580482768471"
+                    Point3="-92.2999932158325,44.6580482768471" />
+                  <mssgle:LineSegment
+                    End="-92.2999932158325,61.0999991502359" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="153.6,41.6"
+          Id="Package\CARGA STAGE_PRODUCTO\Conditional Split"
+          TopLeft="450.833308700887,426.13333082623" />
+        <EdgeLayout
+          Id="Package\CARGA STAGE_PRODUCTO.Paths[Merge Join Output]"
+          TopLeft="526.633308427699,367.466664400631">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58.666666425599"
+              Start="0,0"
+              End="0,51.166666425599">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.166666425599" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\CARGA STAGE_PRODUCTO\OLE DB Destination"
+          TopLeft="428.333309930233,520.06666420175" />
+        <EdgeLayout
+          Id="Package\CARGA STAGE_PRODUCTO.Paths[productos_nuevos]"
+          TopLeft="527.633308700887,467.73333082623">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-13.6999987706544,52.3333333755202"
+              Start="0,0"
+              End="-13.6999987706544,44.8333333755202">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.1666666877601" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.1666666877601"
+                    Point2="0,26.1666666877601"
+                    Point3="-4,26.1666666877601" />
+                  <mssgle:LineSegment
+                    End="-9.69999877065436,26.1666666877601" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-9.69999877065436,26.1666666877601"
+                    Point2="-13.6999987706544,26.1666666877601"
+                    Point3="-13.6999987706544,30.1666666877601" />
+                  <mssgle:LineSegment
+                    End="-13.6999987706544,44.8333333755202" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-47.5541986040772,31.1666666877601,81.4083984375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA STAGE_PRODUCTO\NORRHWIND_PRODUCTS">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA STAGE_PRODUCTO\STAGE_PRODUCTOS">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA STAGE_PRODUCTO\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
