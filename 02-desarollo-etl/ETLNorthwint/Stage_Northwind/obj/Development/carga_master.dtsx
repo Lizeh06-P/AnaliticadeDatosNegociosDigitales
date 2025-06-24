@@ -11,8 +11,8 @@
   DTS:LocaleID="22538"
   DTS:ObjectName="carga_master"
   DTS:PackageType="5"
-  DTS:VersionBuild="12"
-  DTS:VersionGUID="{58C174D0-D978-41B3-A21E-D893D867F0BE}">
+  DTS:VersionBuild="13"
+  DTS:VersionGUID="{55B188C3-367D-4344-B394-0E3215C436E1}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />

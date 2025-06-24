@@ -11,8 +11,8 @@
   DTS:LocaleID="22538"
   DTS:ObjectName="03-Datamart-Productos"
   DTS:PackageType="5"
-  DTS:VersionBuild="15"
-  DTS:VersionGUID="{E1D98D9B-55B8-40F6-BE70-7ADC2DB655EF}">
+  DTS:VersionBuild="16"
+  DTS:VersionGUID="{BA2523D8-D629-4AC9-9570-D9A4E769B1B3}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1347,7 +1347,9 @@ ON p.categoriaid = c.categoriaid;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="-8,5.416666416559,16,16"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>

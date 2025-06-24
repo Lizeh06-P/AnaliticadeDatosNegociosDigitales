@@ -11,8 +11,8 @@
   DTS:LocaleID="22538"
   DTS:ObjectName="03-Datamart-Productos"
   DTS:PackageType="5"
-  DTS:VersionBuild="15"
-  DTS:VersionGUID="{E1D98D9B-55B8-40F6-BE70-7ADC2DB655EF}">
+  DTS:VersionBuild="17"
+  DTS:VersionGUID="{7ADEBD5E-30C2-4AA4-911F-1AC111FDC76D}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>

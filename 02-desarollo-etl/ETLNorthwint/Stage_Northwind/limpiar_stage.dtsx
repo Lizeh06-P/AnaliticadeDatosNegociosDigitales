@@ -11,8 +11,8 @@
   DTS:LocaleID="22538"
   DTS:ObjectName="limpiar_stage"
   DTS:PackageType="5"
-  DTS:VersionBuild="12"
-  DTS:VersionGUID="{DD34FB61-3142-4014-A4CE-FD7E2B466F97}">
+  DTS:VersionBuild="14"
+  DTS:VersionGUID="{382003E5-6846-42A9-A3C7-4406574AC9E9}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -382,18 +382,18 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción 5]"
-          TopLeft="542.499970359108,41.8666667148801">
+          TopLeft="542.499970359108,41.8666667148802">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-80.3333208577499,0"
+              EndConnector="-80.33332085775,0"
               Start="0,0"
-              End="-72.8333208577499,0">
+              End="-72.83332085775,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="-72.8333208577499,0" />
+                    End="-72.83332085775,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -408,14 +408,14 @@
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-98.3333192186231,0"
+              EndConnector="-98.3333192186234,0"
               Start="0,0"
-              End="-90.8333192186231,0">
+              End="-90.8333192186234,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="-90.8333192186231,0" />
+                    End="-90.8333192186234,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
